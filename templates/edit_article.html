@@ -1,0 +1,12 @@
+<h1>Modifier l'article</h1>
+<form method="post">
+    <input type="text" name="titre" value="{{ article.titre }}" required>
+    <input type="text" name="auteur" value="{{ article.auteur }}" required>
+    <input type="text" name="categorie" value="{{ article.categorie }}">
+    <input type="text" name="tags" value="{{ article.tags }}">
+    <br>
+    <textarea name="contenu" rows="4" cols="50" required>{{ article.contenu }}</textarea>
+    <br>
+    <button type="submit">Enregistrer</button>
+</form>
+<a href="{{ url_for('show_articles') }}">Retour au tableau</a>

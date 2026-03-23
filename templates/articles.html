@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion du Blog</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        form { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Gestion des Articles</h1>
+
+    <!-- Formulaire de recherche -->
+    <form action="/articles-recherche" method="get">
+        <input type="text" name="titre" placeholder="Titre">
+        <input type="text" name="auteur" placeholder="Auteur">
+        <input type="text" name="categorie" placeholder="Catégorie">
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <!-- Formulaire pour ajouter un nouvel article -->
+    <h2>Ajouter un article</h2>
+    <form action="/articles-ajouter" method="post">
+        <input type="text" name="titre" placeholder="Titre" required>
+        <input type="text" name="auteur" placeholder="Auteur" required>
+        <input type="text" name="categorie" placeholder="Catégorie">
+        <input type="text" name="tags" placeholder="Tags">
+        <br>
+        <textarea name="contenu" placeholder="Contenu" rows="4" cols="50" required></textarea>
+        <br>
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <!-- Tableau des articles -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Auteur</th>
+                <th>Date</th>
+                <th>Catégorie</th>
+                <th>Tags</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.titre }}</td>
+                <td>{{ article.contenu }}</td>
+                <td>{{ article.auteur }}</td>
+                <td>{{ article.date_creation }}</td>
+                <td>{{ article.categorie }}</td>
+                <td>{{ article.tags }}</td>
+                <td>
+                    <form action="/articles-supprimer/{{ article.id }}" method="post" style="display:inline;">
+                        <button type="submit">Supprimer</button>
+                    </form>
+                    <form action="/articles-modifier/{{ article.id }}" method="get" style="display:inline;">
+                        <button type="submit">Modifier</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
